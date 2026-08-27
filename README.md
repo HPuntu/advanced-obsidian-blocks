@@ -124,3 +124,4 @@ Fenced Blocks targets Obsidian 1.13.1 or newer on desktop and mobile. It deliber
 ## License
 
 [MIT](LICENSE) © 2026 Hew Phipps.
+# advanced-obsidian-blocks
