@@ -1,0 +1,9 @@
+{
+  "id": "fenced-blocks",
+  "name": "Fenced Blocks",
+  "version": "0.1.0",
+  "minAppVersion": "1.13.1",
+  "description": "Create, style, and apply reusable visual blocks with simple fenced Markdown.",
+  "author": "Hew Phipps",
+  "isDesktopOnly": false
+}

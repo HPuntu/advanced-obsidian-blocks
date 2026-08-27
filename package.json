@@ -1,0 +1,52 @@
+{
+  "name": "fenced-blocks",
+  "version": "0.1.0",
+  "description": "Reusable, visually configurable :::name blocks for Obsidian.",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "check": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "dev": "node esbuild.config.mjs",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "package": "node scripts/package-release.mjs",
+    "release:check": "npm run check && npm run sync:version && npm audit --omit=dev",
+    "sync:version": "node scripts/sync-version.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -noEmit -skipLibCheck"
+  },
+  "keywords": [
+    "obsidian",
+    "markdown",
+    "fenced-blocks",
+    "custom-blocks",
+    "callouts"
+  ],
+  "author": "Hew Phipps",
+  "license": "MIT",
+  "files": [
+    "main.js",
+    "manifest.json",
+    "styles.css"
+  ],
+  "devDependencies": {
+    "@codemirror/state": "^6.5.0",
+    "@codemirror/view": "^6.38.6",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^20.11.30",
+    "esbuild": "^0.28.0",
+    "eslint": "^10.8.1",
+    "eslint-plugin-obsidianmd": "^0.4.1",
+    "globals": "^17.6.0",
+    "jiti": "^2.6.1",
+    "obsidian": "latest",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.67.0",
+    "vitest": "^3.2.7"
+  }
+}
