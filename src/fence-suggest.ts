@@ -8,12 +8,30 @@ import {
 } from "obsidian";
 
 import { isLineProtected } from "./fence-parser";
+import { renderStyleOption } from "./style-preview";
 import type FencedBlocksPlugin from "./main";
 import type { BlockStyle } from "./types";
 
 export class FenceSuggest extends EditorSuggest<BlockStyle> {
   constructor(private readonly plugin: FencedBlocksPlugin) {
     super(plugin.app);
+    this.setInstructions([
+      { command: "↑↓", purpose: "Navigate" },
+      { command: "tab", purpose: "Insert" },
+      { command: "esc", purpose: "Close" }
+    ]);
+    this.scope.register([], "Tab", (event) => {
+      if (!this.context) {
+        return;
+      }
+      const selected = window.activeDocument.querySelector<HTMLElement>(".suggestion-item.is-selected");
+      if (!selected) {
+        return;
+      }
+      event.preventDefault();
+      selected.click();
+      return false;
+    });
   }
 
   onTrigger(
@@ -44,8 +62,7 @@ export class FenceSuggest extends EditorSuggest<BlockStyle> {
   }
 
   renderSuggestion(style: BlockStyle, element: HTMLElement): void {
-    element.createDiv({ cls: "fenced-block-suggestion__name", text: style.name });
-    element.createDiv({ cls: "fenced-block-suggestion__syntax", text: `:::${style.id}` });
+    renderStyleOption(element, style);
   }
 
   selectSuggestion(style: BlockStyle): void {

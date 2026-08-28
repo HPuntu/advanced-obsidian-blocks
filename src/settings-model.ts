@@ -163,7 +163,7 @@ export function mergeImportedStyles(
   replace: boolean
 ): FencedBlocksSettings {
   if (!isRecord(imported) || !Array.isArray(imported.styles)) {
-    throw new TypeError("Imported data is not a Fenced Blocks settings export.");
+    throw new TypeError("Imported data is not an Advanced Markdown Blocks settings export.");
   }
   const normalized = normalizeSettings(imported);
   if (replace) {

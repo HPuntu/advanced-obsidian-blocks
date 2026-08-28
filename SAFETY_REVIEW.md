@@ -1,10 +1,10 @@
-# Safety review — Fenced Blocks
+# Safety review — Advanced Markdown Blocks
 
 Scope: the 0.1.0 foundation, reviewed for public release and Obsidian's automated community-plugin checks.
 
 ## Summary
 
-Fenced Blocks reads its own settings and the Markdown currently being rendered or edited. It does not access the network, execute programs, open ports, collect telemetry, install updates, or delete files.
+Advanced Markdown Blocks reads its own settings and the Markdown currently being rendered or edited. It does not access the network, execute programs, open ports, collect telemetry, install updates, or delete files.
 
 ## Vault access
 

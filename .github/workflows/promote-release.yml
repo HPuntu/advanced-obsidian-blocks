@@ -14,7 +14,7 @@ on:
 
 concurrency:
   cancel-in-progress: false
-  group: fenced-blocks-release
+  group: advanced-blocks-release
 
 permissions:
   attestations: write

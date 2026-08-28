@@ -1,5 +1,5 @@
 {
-  "name": "fenced-blocks",
+  "name": "advanced-blocks",
   "version": "0.1.0",
   "description": "Reusable, visually configurable :::name blocks for Obsidian.",
   "engines": {
@@ -23,6 +23,7 @@
   "keywords": [
     "obsidian",
     "markdown",
+    "advanced-blocks",
     "fenced-blocks",
     "custom-blocks",
     "callouts"

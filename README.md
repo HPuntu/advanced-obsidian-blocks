@@ -1,6 +1,9 @@
-# Fenced Blocks
+# Advanced Markdown Blocks
 
-Fenced Blocks makes `:::` the block-level counterpart to `**`, `==`, backticks, and `$$` in Obsidian.
+Advanced Markdown Blocks makes `:::` the block-level counterpart to `**`, `==`, backticks, and `$$` in Obsidian.
+
+> [!NOTE]
+> This is an alpha release. The core syntax and settings format are stable enough for real notes, but visual and compatibility refinements are still in active development.
 
 ```markdown
 :::definition
@@ -20,7 +23,7 @@ The important difference from general extended-Markdown plugins is that a **visu
 - Visual light/dark colour, border, spacing, radius, and typography controls.
 - One searchable **Apply fenced block…** command plus a command for every style.
 - Wraps selected text—or the current paragraph when there is no selection.
-- Autocomplete after typing `:::` at the beginning of a line.
+- Tab-first autocomplete after typing `:::` at the beginning of a line.
 - Apply, change, and remove actions in the editor context menu.
 - Create or duplicate styles without leaving the writing workflow.
 - Validated JSON import/export.
@@ -30,14 +33,14 @@ The important difference from general extended-Markdown plugins is that a **visu
 
 ## Quick start
 
-1. Enable Fenced Blocks under **Settings → Community plugins**.
-2. Select a paragraph and run **Fenced Blocks: Apply fenced block…**.
+1. Enable Advanced Markdown Blocks under **Settings → Community plugins**.
+2. Select a paragraph and run **Advanced Markdown Blocks: Apply fenced block…**.
 3. Choose **Definition**, **Comment**, or another style.
-4. Open **Settings → Fenced Blocks** to change its appearance.
+4. Open **Settings → Advanced Markdown Blocks** to change its appearance.
 
 With no selection, the apply command wraps the current paragraph. On an empty line it inserts a paired fence and places the cursor inside it.
 
-You can also type `:::` at the start of a line and choose a style from autocomplete:
+You can also type `:::` at the start of a line, use the arrow keys to choose a style, and press **Tab** to insert it:
 
 ```markdown
 :::warning
@@ -88,7 +91,7 @@ font-family: var(--font-text);
 letter-spacing: 0.01em;
 ```
 
-You do not need to provide a selector. Fenced Blocks validates the declarations and rejects selectors, braces, `@` rules, URL loading, and executable legacy CSS. This keeps the escape hatch local and intentionally narrower than a general CSS snippet.
+You do not need to provide a selector. Advanced Markdown Blocks validates the declarations and rejects selectors, braces, `@` rules, URL loading, and executable legacy CSS. This keeps the escape hatch local and intentionally narrower than a general CSS snippet.
 
 ## Installation from source
 
@@ -102,10 +105,10 @@ npm run build
 Copy `main.js`, `manifest.json`, and `styles.css` to:
 
 ```text
-<vault>/.obsidian/plugins/fenced-blocks/
+<vault>/.obsidian/plugins/advanced-blocks/
 ```
 
-Reload Obsidian and enable **Fenced Blocks**.
+Reload Obsidian and enable **Advanced Markdown Blocks**.
 
 ## Development
 
@@ -119,9 +122,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [RELEASING.md](RELEASING.md), and [SAFET
 
 ## Compatibility and scope
 
-Fenced Blocks targets Obsidian 1.13.1 or newer on desktop and mobile. It deliberately focuses on reusable visual formatting rather than Pandoc export semantics, theorem numbering, citations, or definition lists.
+Advanced Markdown Blocks targets Obsidian 1.13.1 or newer on desktop and mobile. It deliberately focuses on reusable visual formatting rather than Pandoc export semantics, theorem numbering, citations, or definition lists.
 
 ## License
 
 [MIT](LICENSE) © 2026 Hew Phipps.
-# advanced-obsidian-blocks

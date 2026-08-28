@@ -3,10 +3,12 @@ import {
   Modal,
   Notice,
   Setting,
-  type App
+  type App,
+  type FuzzyMatch
 } from "obsidian";
 
 import { slugifyStyleId } from "./settings-model";
+import { renderStyleOption } from "./style-preview";
 import type { BlockStyle } from "./types";
 
 type StyleChoice =
@@ -40,6 +42,18 @@ export class StylePickerModal extends FuzzySuggestModal<StyleChoice> {
     return choice.kind === "create"
       ? "Create new style"
       : `${choice.style.name} :::${choice.style.id}`;
+  }
+
+  renderSuggestion(match: FuzzyMatch<StyleChoice>, element: HTMLElement): void {
+    const choice = match.item;
+    if (choice.kind === "style") {
+      renderStyleOption(element, choice.style);
+      return;
+    }
+    element.addClass("fenced-block-style-option", "fenced-block-style-option--create");
+    element.setAttribute("aria-label", "Create new style");
+    element.createDiv({ cls: "fenced-block-style-option__create-icon", text: "+" });
+    element.createDiv({ cls: "fenced-block-style-option__text", text: "Create new style" });
   }
 
   onChooseItem(choice: StyleChoice): void {
@@ -167,7 +181,7 @@ export class JsonTransferModal extends Modal {
     this.contentEl.createEl("p", {
       text: this.mode === "export"
         ? "Copy this JSON to share or back up your styles."
-        : "Paste JSON exported by Fenced Blocks. Imported styles are validated before they are saved."
+        : "Paste JSON exported by Advanced Markdown Blocks. Imported styles are validated before they are saved."
     });
     const textArea = this.contentEl.createEl("textarea", { cls: "fenced-block-json" });
     textArea.value = this.value;
