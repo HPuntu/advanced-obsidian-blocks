@@ -14,7 +14,7 @@ on:
 
 concurrency:
   cancel-in-progress: false
-  group: fenced-blocks-release
+  group: advanced-obsidian-blocks-release
 
 permissions:
   attestations: write

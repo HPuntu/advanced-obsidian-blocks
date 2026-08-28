@@ -1,6 +1,6 @@
-# Fenced Blocks
+# Advanced Obsidian Blocks
 
-Fenced Blocks makes `:::` the block-level counterpart to `**`, `==`, backticks, and `$$` in Obsidian.
+Advanced Obsidian Blocks makes `:::` the block-level counterpart to `**`, `==`, backticks, and `$$` in Obsidian.
 
 ```markdown
 :::definition
@@ -30,10 +30,10 @@ The important difference from general extended-Markdown plugins is that a **visu
 
 ## Quick start
 
-1. Enable Fenced Blocks under **Settings → Community plugins**.
-2. Select a paragraph and run **Fenced Blocks: Apply fenced block…**.
+1. Enable Advanced Obsidian Blocks under **Settings → Community plugins**.
+2. Select a paragraph and run **Advanced Obsidian Blocks: Apply fenced block…**.
 3. Choose **Definition**, **Comment**, or another style.
-4. Open **Settings → Fenced Blocks** to change its appearance.
+4. Open **Settings → Advanced Obsidian Blocks** to change its appearance.
 
 With no selection, the apply command wraps the current paragraph. On an empty line it inserts a paired fence and places the cursor inside it.
 
@@ -88,7 +88,7 @@ font-family: var(--font-text);
 letter-spacing: 0.01em;
 ```
 
-You do not need to provide a selector. Fenced Blocks validates the declarations and rejects selectors, braces, `@` rules, URL loading, and executable legacy CSS. This keeps the escape hatch local and intentionally narrower than a general CSS snippet.
+You do not need to provide a selector. Advanced Obsidian Blocks validates the declarations and rejects selectors, braces, `@` rules, URL loading, and executable legacy CSS. This keeps the escape hatch local and intentionally narrower than a general CSS snippet.
 
 ## Installation from source
 
@@ -102,10 +102,10 @@ npm run build
 Copy `main.js`, `manifest.json`, and `styles.css` to:
 
 ```text
-<vault>/.obsidian/plugins/fenced-blocks/
+<vault>/.obsidian/plugins/advanced-obsidian-blocks/
 ```
 
-Reload Obsidian and enable **Fenced Blocks**.
+Reload Obsidian and enable **Advanced Obsidian Blocks**.
 
 ## Development
 
@@ -119,7 +119,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [RELEASING.md](RELEASING.md), and [SAFET
 
 ## Compatibility and scope
 
-Fenced Blocks targets Obsidian 1.13.1 or newer on desktop and mobile. It deliberately focuses on reusable visual formatting rather than Pandoc export semantics, theorem numbering, citations, or definition lists.
+Advanced Obsidian Blocks targets Obsidian 1.13.1 or newer on desktop and mobile. It deliberately focuses on reusable visual formatting rather than Pandoc export semantics, theorem numbering, citations, or definition lists.
 
 ## License
 

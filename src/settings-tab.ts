@@ -271,7 +271,7 @@ export class FencedBlocksSettingTab extends PluginSettingTab {
                   ? "No allowed CSS declarations were found. Selectors, @ rules, and URL loading are not accepted."
                   : undefined
               },
-              desc: "Optional declarations only. Fenced Blocks supplies the selector and blocks network-loading or executable CSS.",
+              desc: "Optional declarations only. Advanced Obsidian Blocks supplies the selector and blocks network-loading or executable CSS.",
               name: "Advanced CSS declarations"
             }
           ],

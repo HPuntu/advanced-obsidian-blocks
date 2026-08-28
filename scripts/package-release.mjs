@@ -5,7 +5,7 @@ import path from "node:path";
 
 const manifest = JSON.parse(await readFile("manifest.json", "utf8"));
 const outputDirectory = "dist";
-const outputPath = path.join(outputDirectory, `fenced-blocks-${manifest.version}.zip`);
+const outputPath = path.join(outputDirectory, `advanced-obsidian-blocks-${manifest.version}.zip`);
 const assets = ["main.js", "manifest.json", "styles.css"];
 
 for (const asset of assets) {

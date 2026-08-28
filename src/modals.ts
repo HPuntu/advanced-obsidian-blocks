@@ -167,7 +167,7 @@ export class JsonTransferModal extends Modal {
     this.contentEl.createEl("p", {
       text: this.mode === "export"
         ? "Copy this JSON to share or back up your styles."
-        : "Paste JSON exported by Fenced Blocks. Imported styles are validated before they are saved."
+        : "Paste JSON exported by Advanced Obsidian Blocks. Imported styles are validated before they are saved."
     });
     const textArea = this.contentEl.createEl("textarea", { cls: "fenced-block-json" });
     textArea.value = this.value;
