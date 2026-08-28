@@ -1,6 +1,6 @@
 # Contributing
 
-Contributions are welcome when they preserve Advanced Obsidian Blocks' narrow product boundary: reusable visual `:::name` blocks with a low-friction Obsidian-native interface.
+Contributions are welcome when they preserve Advanced Markdown Blocks' narrow product boundary: reusable visual `:::name` blocks with a low-friction Obsidian-native interface.
 
 ## Local checks
 

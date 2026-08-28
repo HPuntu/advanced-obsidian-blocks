@@ -19,6 +19,7 @@ import {
   mergeImportedStyles
 } from "./settings-model";
 import { sanitizeCssDeclarations } from "./style-css";
+import { renderStylePreview } from "./style-preview";
 import type FencedBlocksPlugin from "./main";
 import type { BlockStyle } from "./types";
 
@@ -38,6 +39,8 @@ const GLOBAL_BOOLEAN_KEYS = new Set<GlobalBooleanKey>([
 ]);
 
 export class FencedBlocksSettingTab extends PluginSettingTab {
+  private readonly previewContainers = new Map<BlockStyle, Set<HTMLElement>>();
+
   constructor(private readonly plugin: FencedBlocksPlugin) {
     super(plugin.app, plugin);
   }
@@ -49,7 +52,7 @@ export class FencedBlocksSettingTab extends PluginSettingTab {
         items: [
           this.toggleDefinition("readingView", "Reading view", "Render configured fences as styled blocks in reading view and PDF output."),
           this.toggleDefinition("livePreview", "Live preview", "Show block styling while editing. The source fence appears while its line is active."),
-          this.toggleDefinition("autocomplete", "Fence autocomplete", "Suggest configured styles at the start of a line after typing three colons."),
+          this.toggleDefinition("autocomplete", "Fence autocomplete", "Suggest configured styles after typing three colons at the start of a line. Press Tab to insert the selected style."),
           this.toggleDefinition("autoInsertClosingFence", "Insert closing fence", "Add the paired closing fence when autocomplete is used on an otherwise empty line."),
           this.toggleDefinition("contextMenu", "Editor context menu", "Add apply, change, and remove actions to the editor context menu.")
         ],
@@ -185,6 +188,7 @@ export class FencedBlocksSettingTab extends PluginSettingTab {
       default:
         return;
     }
+    this.refreshStylePreviews(style);
     await this.plugin.saveSettings();
     if (path === "name") {
       this.update();
@@ -220,6 +224,30 @@ export class FencedBlocksSettingTab extends PluginSettingTab {
       desc: `Use as :::${style.id}`,
       displayValue: () => style.enabled ? `:::${style.id}` : "Disabled",
       items: [
+        {
+          name: `${style.name} preview`,
+          render: (setting) => {
+            setting.settingEl.addClass("fenced-block-settings-preview");
+            setting
+              .setName("Live preview")
+              .setDesc("Updates immediately as you adjust this style.");
+            const container = setting.controlEl.createDiv({ cls: "fenced-block-settings-preview__canvas" });
+            let containers = this.previewContainers.get(style);
+            if (!containers) {
+              containers = new Set();
+              this.previewContainers.set(style, containers);
+            }
+            containers.add(container);
+            renderStylePreview(container, style);
+            return () => {
+              containers?.delete(container);
+              if (containers?.size === 0) {
+                this.previewContainers.delete(style);
+              }
+            };
+          },
+          searchable: false
+        },
         {
           heading: "Identity",
           items: [
@@ -271,7 +299,7 @@ export class FencedBlocksSettingTab extends PluginSettingTab {
                   ? "No allowed CSS declarations were found. Selectors, @ rules, and URL loading are not accepted."
                   : undefined
               },
-              desc: "Optional declarations only. Advanced Obsidian Blocks supplies the selector and blocks network-loading or executable CSS.",
+              desc: "Optional declarations only. Advanced Markdown Blocks supplies the selector and blocks network-loading or executable CSS.",
               name: "Advanced CSS declarations"
             }
           ],
@@ -300,6 +328,12 @@ export class FencedBlocksSettingTab extends PluginSettingTab {
     }
     const style = this.plugin.settings.styles.find((candidate) => candidate.id === match[1]);
     return style ? { path: match[2], style } : null;
+  }
+
+  private refreshStylePreviews(style: BlockStyle): void {
+    for (const container of this.previewContainers.get(style) ?? []) {
+      renderStylePreview(container, style);
+    }
   }
 
   private readColour(value: unknown, fallback: string): string {
