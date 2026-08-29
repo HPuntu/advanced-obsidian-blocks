@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.2.1 - 2026-08-29
+
 - Restored the registered community-directory ID `fenced-blocks` across the manifest and release tooling.
 - Removed a redundant CSS declaration reported as partially supported by the community review scanner.
 - Clarified that vault enumeration occurs only during an explicitly requested fence rename.
