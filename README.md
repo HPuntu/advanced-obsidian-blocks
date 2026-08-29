@@ -105,7 +105,7 @@ npm run build
 Copy `main.js`, `manifest.json`, and `styles.css` to:
 
 ```text
-<vault>/.obsidian/plugins/advanced-blocks/
+<vault>/.obsidian/plugins/fenced-blocks/
 ```
 
 Reload Obsidian and enable **Advanced Markdown Blocks**.
@@ -123,6 +123,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [RELEASING.md](RELEASING.md), and [SAFET
 ## Compatibility and scope
 
 Advanced Markdown Blocks targets Obsidian 1.13.1 or newer on desktop and mobile. It deliberately focuses on reusable visual formatting rather than Pandoc export semantics, theorem numbering, citations, or definition lists.
+
+## Privacy and vault access
+
+Advanced Markdown Blocks works offline and makes no network requests. Normal editing and rendering operate only on the note Obsidian is currently processing. The plugin does not scan the vault in the background.
+
+The **Rename `:::id` in vault** action is the sole vault-wide operation. It runs only after the user explicitly requests and confirms a rename, enumerates Markdown files, and updates matching fences through Obsidian's Vault API. Fences inside code blocks and comments are ignored. The action does not create, move, or delete files.
 
 ## License
 

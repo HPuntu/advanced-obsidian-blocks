@@ -4,7 +4,6 @@
   background-color: var(--fenced-block-background);
   border-radius: var(--fenced-block-radius);
   box-sizing: border-box;
-  break-inside: auto;
   color: var(--fenced-block-text);
   font-style: var(--fenced-block-font-style);
   font-weight: var(--fenced-block-font-weight);

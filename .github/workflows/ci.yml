@@ -27,4 +27,4 @@ jobs:
       - run: git diff --exit-code manifest.json versions.json
       - run: npm audit --omit=dev
       - run: npm run package
-      - run: unzip -l dist/advanced-blocks-$(node -p "require('./manifest.json').version").zip
+      - run: unzip -l dist/fenced-blocks-$(node -p "require('./manifest.json').version").zip
