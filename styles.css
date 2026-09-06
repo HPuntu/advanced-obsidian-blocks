@@ -86,6 +86,7 @@
 }
 
 .theme-light .fenced-block,
+.theme-light .markdown-source-view .cm-embed-block.fenced-block-embed,
 .theme-light .markdown-source-view .cm-line.fenced-block-line {
   --fenced-block-accent: var(--fenced-block-accent-light);
   --fenced-block-background: var(--fenced-block-background-light);
@@ -93,6 +94,7 @@
 }
 
 .theme-dark .fenced-block,
+.theme-dark .markdown-source-view .cm-embed-block.fenced-block-embed,
 .theme-dark .markdown-source-view .cm-line.fenced-block-line {
   --fenced-block-accent: var(--fenced-block-accent-dark);
   --fenced-block-background: var(--fenced-block-background-dark);
@@ -101,6 +103,24 @@
 
 .markdown-source-view .cm-line.fenced-block-line[data-fenced-block-depth] {
   margin-inline-start: calc((min(var(--fenced-block-depth), 6) - 1) * 6px);
+}
+
+/* Live Preview renders display maths as a block widget between its source lines. */
+.markdown-source-view .cm-embed-block.fenced-block-embed {
+  background-color: var(--fenced-block-background);
+  box-sizing: border-box;
+  color: var(--fenced-block-text);
+  margin-block: 0;
+  margin-inline-start: calc((min(var(--fenced-block-depth), 6) - 1) * 6px);
+  padding-inline: calc(var(--fenced-block-padding-horizontal) + (var(--fenced-block-depth, 1) - 1) * 7px);
+}
+
+.markdown-source-view .cm-embed-block.fenced-block-embed[data-fenced-block-border="all"] {
+  border-inline: var(--fenced-block-border-width) var(--fenced-block-border-style) var(--fenced-block-accent);
+}
+
+.markdown-source-view .cm-embed-block.fenced-block-embed[data-fenced-block-border="left"] {
+  border-inline-start: var(--fenced-block-border-width) var(--fenced-block-border-style) var(--fenced-block-accent);
 }
 
 .fenced-block-marker {
