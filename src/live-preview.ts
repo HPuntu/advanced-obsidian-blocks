@@ -19,6 +19,49 @@ interface LineState {
   style: BlockStyle;
 }
 
+const EMBED_STYLE_CLASS = "fenced-block-embed";
+const EMBED_SELECTOR = ".cm-embed-block";
+
+function clearEmbedStyle(element: HTMLElement): void {
+  element.removeClass(EMBED_STYLE_CLASS);
+  element.removeAttribute("data-fenced-block-border");
+  element.removeAttribute("data-fenced-block-depth");
+  element.removeAttribute("data-fenced-block-style");
+  for (const property of Array.from(element.style)) {
+    if (property.startsWith("--fenced-block-")) {
+      element.style.removeProperty(property);
+    }
+  }
+}
+
+function syncEmbeddedBlocks(root: HTMLElement): void {
+  const embeds = root.querySelectorAll<HTMLElement>(EMBED_SELECTOR);
+  for (const embed of Array.from(embeds)) {
+    clearEmbedStyle(embed);
+    const previous = embed.previousElementSibling;
+    const next = embed.nextElementSibling;
+    const sourceLine = [previous, next].find((element): element is HTMLElement =>
+      element instanceof HTMLElement && element.matches(".cm-line.fenced-block-line")
+    );
+    if (!sourceLine) {
+      continue;
+    }
+
+    embed.addClass(EMBED_STYLE_CLASS);
+    for (const attribute of ["data-fenced-block-border", "data-fenced-block-depth", "data-fenced-block-style"]) {
+      const value = sourceLine.getAttribute(attribute);
+      if (value !== null) {
+        embed.setAttribute(attribute, value);
+      }
+    }
+    for (const property of Array.from(sourceLine.style)) {
+      if (property.startsWith("--fenced-block-")) {
+        embed.style.setProperty(property, sourceLine.style.getPropertyValue(property));
+      }
+    }
+  }
+}
+
 class FenceLabelWidget extends WidgetType {
   constructor(private readonly label: string) {
     super();
@@ -156,15 +199,43 @@ function createDecorations(view: EditorView, settings: FencedBlocksSettings): De
 export function createLivePreviewExtension(getSettings: () => FencedBlocksSettings): Extension {
   return ViewPlugin.fromClass(class {
     decorations: DecorationSet;
+    private animationFrame: number | null = null;
+    private readonly observer: MutationObserver;
+    private readonly view: EditorView;
 
     constructor(view: EditorView) {
+      this.view = view;
       this.decorations = createDecorations(view, getSettings());
+      this.observer = new MutationObserver(() => this.scheduleEmbedSync());
+      this.observer.observe(view.dom, { childList: true, subtree: true });
+      this.scheduleEmbedSync();
     }
 
     update(update: ViewUpdate): void {
       if (update.docChanged || update.selectionSet) {
         this.decorations = createDecorations(update.view, getSettings());
       }
+      this.scheduleEmbedSync();
+    }
+
+    destroy(): void {
+      this.observer.disconnect();
+      if (this.animationFrame !== null) {
+        window.cancelAnimationFrame(this.animationFrame);
+      }
+      for (const embed of Array.from(this.view.dom.querySelectorAll<HTMLElement>(`.${EMBED_STYLE_CLASS}`))) {
+        clearEmbedStyle(embed);
+      }
+    }
+
+    private scheduleEmbedSync(): void {
+      if (this.animationFrame !== null) {
+        return;
+      }
+      this.animationFrame = window.requestAnimationFrame(() => {
+        this.animationFrame = null;
+        syncEmbeddedBlocks(this.view.dom);
+      });
     }
   }, {
     decorations: (value) => value.decorations

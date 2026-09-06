@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Kept Live Preview display-math widgets visually continuous with their surrounding fenced block.
+
 ## 0.2.1 - 2026-08-29
 
 - Restored the registered community-directory ID `fenced-blocks` across the manifest and release tooling.
