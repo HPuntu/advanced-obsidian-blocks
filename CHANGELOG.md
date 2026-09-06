@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.2.2 - 2026-09-06
+
 - Kept Live Preview display-math widgets visually continuous with their surrounding fenced block.
 
 ## 0.2.1 - 2026-08-29
