@@ -11,6 +11,8 @@ A probability distribution describes the relative likelihood of possible outcome
 :::
 ```
 
+![main](assets/advanced_markdown_blocks.png)
+
 The Markdown stays readable and portable. Inside a fence you can use ordinary Obsidian Markdown, including paragraphs, lists, links, images, callouts, code, and maths. Fences can be nested.
 
 The important difference from general extended-Markdown plugins is that a **visual block style is the first-class object**. Users create, duplicate, adjust, apply, import, and export styles from Obsidian's interface without learning CSS selectors or maintaining snippets.

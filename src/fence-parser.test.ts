@@ -109,6 +109,44 @@ describe("parseFencedBlockNodes", () => {
     const nodes = parseFencedBlockNodes(source, new Set(["definition"]));
     expect(nodes).toEqual([{ content: `${source}\n`, type: "markdown" }]);
   });
+
+  it("preserves content after a fenced code block inside a styled block", () => {
+    const source = [
+      ":::important",
+      "Before the code.",
+      "",
+      "```python",
+      "Normal.cdf(x, y=None)",
+      "```",
+      "",
+      "After the code.",
+      "",
+      "- First property",
+      "- Second property",
+      ":::"
+    ].join("\n");
+    const nodes = parseFencedBlockNodes(source, new Set(["important"]));
+    expect(nodes).toHaveLength(1);
+    expect(nodes[0]).toMatchObject({ styleId: "important", type: "block" });
+    const block = nodes[0];
+    if (block?.type === "block") {
+      expect(block.children).toEqual([{
+        content: [
+          "Before the code.",
+          "",
+          "```python",
+          "Normal.cdf(x, y=None)",
+          "```",
+          "",
+          "After the code.",
+          "",
+          "- First property",
+          "- Second property"
+        ].join("\n"),
+        type: "markdown"
+      }]);
+    }
+  });
 });
 
 describe("renameFenceStyle", () => {
