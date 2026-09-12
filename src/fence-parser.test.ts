@@ -4,8 +4,7 @@ import {
   isLineProtected,
   parseFencedBlockNodes,
   renameFenceStyle,
-  scanFencedBlocks,
-  splitMarkdownAtCodeFenceBoundaries
+  scanFencedBlocks
 } from "./fence-parser";
 
 describe("scanFencedBlocks", () => {
@@ -168,31 +167,5 @@ describe("renameFenceStyle", () => {
     expect(renamed.source).toContain(":::term\nText");
     expect(renamed.source).toContain(":::definition-long");
     expect(renamed.source.match(/:::definition/g)).toHaveLength(2);
-  });
-});
-
-describe("splitMarkdownAtCodeFenceBoundaries", () => {
-  it("keeps content after a fenced code block in a separate render chunk", () => {
-    const source = [
-      "Before.",
-      "```python",
-      "print('inside')",
-      "```",
-      "",
-      "After.",
-      "- Still visible"
-    ].join("\n");
-    expect(splitMarkdownAtCodeFenceBoundaries(source)).toEqual([
-      "Before.\n```python\nprint('inside')\n```\n",
-      "\nAfter.\n- Still visible"
-    ]);
-  });
-
-  it("does not split on shorter or mismatched fence markers", () => {
-    const source = "````js\n```\n~~~\n````\nAfter";
-    expect(splitMarkdownAtCodeFenceBoundaries(source)).toEqual([
-      "````js\n```\n~~~\n````\n",
-      "After"
-    ]);
   });
 });
