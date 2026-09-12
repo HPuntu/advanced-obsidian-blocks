@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.2.3 - 2026-09-12
+
+- Publish README preview and reader regression coverage (edb2518)
+- fix: restore stable reading view rendering (916c8cd)
+- added emo image to README (40702c7)
+
 ## 0.2.2 - 2026-09-06
 
 - Kept Live Preview display-math widgets visually continuous with their surrounding fenced block.
