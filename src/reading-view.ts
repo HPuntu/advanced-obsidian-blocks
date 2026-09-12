@@ -7,7 +7,11 @@ import {
   TFile
 } from "obsidian";
 
-import { parseFencedBlockNodes, scanFencedBlocks } from "./fence-parser";
+import {
+  parseFencedBlockNodes,
+  scanFencedBlocks,
+  splitMarkdownAtCodeFenceBoundaries
+} from "./fence-parser";
 import { applyStyleProperties } from "./style-css";
 import type { BlockStyle, FenceBlockRange, FencedBlocksSettings, ParsedNode } from "./types";
 
@@ -27,9 +31,12 @@ async function renderNodes(
 ): Promise<void> {
   for (const node of nodes) {
     if (node.type === "markdown") {
-      if (node.content.trim()) {
+      for (const chunk of splitMarkdownAtCodeFenceBoundaries(node.content)) {
+        if (!chunk.trim()) {
+          continue;
+        }
         const markdownContainer = container.createDiv({ cls: "fenced-block-markdown" });
-        await MarkdownRenderer.render(app, node.content, markdownContainer, sourcePath, child);
+        await MarkdownRenderer.render(app, chunk, markdownContainer, sourcePath, child);
       }
       continue;
     }

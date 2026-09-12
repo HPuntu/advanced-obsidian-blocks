@@ -155,3 +155,36 @@ export function renameFenceStyle(source: string, oldId: string, newId: string): 
 export function isLineProtected(source: string, lineNumber: number): boolean {
   return getProcessableLines(source).protectedLines.has(lineNumber);
 }
+
+export function splitMarkdownAtCodeFenceBoundaries(source: string): string[] {
+  const lines = source.split("\n");
+  const chunks: string[] = [];
+  let codeMarker = "";
+  let chunkStart = 0;
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index] ?? "";
+    if (!codeMarker) {
+      const opening = CODE_FENCE.exec(line);
+      if (opening?.[1]) {
+        codeMarker = opening[1];
+      }
+      continue;
+    }
+    if (!isCodeFenceClosing(line, codeMarker)) {
+      continue;
+    }
+
+    codeMarker = "";
+    if (index < lines.length - 1) {
+      chunks.push(`${lines.slice(chunkStart, index + 1).join("\n")}\n`);
+      chunkStart = index + 1;
+    }
+  }
+
+  const remainder = lines.slice(chunkStart).join("\n");
+  if (remainder || chunks.length === 0) {
+    chunks.push(remainder);
+  }
+  return chunks;
+}
